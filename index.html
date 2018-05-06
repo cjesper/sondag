@@ -6,21 +6,39 @@
     </header>
   <body id="body">
       <img class="head" src="src/head.png" />
-      <img class="head" id="glow" src="src/head_glow.png" />
-      <img id="prippan" src="src/prippan.png" />
+      <img class="head" id="glow" src="src/head_hungover.png" />
+      <img id="prippan" src="src/pizza_slice.png" />
       <div id="bild">
         <img class="image" src="./src/fredag.png">    
       </div>
-      <img onclick="add_strobe()" id="lob_bild" src="src/lob.JPG" />
+      <div id ="border_div">
+          <h3 onclick="add_strobe()" id="lob_bild"> Press this to become instantly strong (sound)</h3>
+      <div>
+      <h1 id="nosunday" >Det är inte söndag, vänner! </h1>
       <h3 id="counter">1</h3>
-      <a target="_blank" href="https://www.youtube.com/watch?v=K8M7fFwdM9w" id="valborg">Det börjar närma sig Valborg, mina vänner.  </a>
       <script>
-        var audio = new Audio('src/scooter.mp3');
+        var date = new Date();
+        var day = date.getDay();
+        console.log(day);
+        var audio = new Audio('src/kenta.mp3');
         var counter = 0;
         var counter_element = document.getElementById('counter');
         counter_element.innerHTML = counter;
         counter_element.style.display = "none"; 
         var toggle_strobe = true;
+        
+        function hide_sunday() {
+            var prippan = document.getElementById("prippan");
+            var head = document.getElementById("bild");
+            var glow = document.getElementById("glow");
+            prippan.style.display = "none";
+            head.style.display = "none";
+            glow.style.display = "none";
+        } 
+        if (day != 0) {
+            hide_sunday();
+        } else {
+          document.getElementById('nosunday').style.display = "none";
         setTimeout(() => {
           document.getElementById('glow').style.display = "block";
           var prippan = document.getElementById("prippan");
@@ -41,18 +59,15 @@
           }, 10000);
 
         }, 10500);
+        }
 
           function add_strobe () {
             var prippan = document.getElementById("prippan");
             if (toggle_strobe === true) {
-              var body = document.getElementById("body").classList.add("body-strobe")
               audio.play();
-              prippan.src="src/jelzin.jpg";
               toggle_strobe = false;
             } else {
-              var body = document.getElementById("body").classList.remove("body-strobe")
               audio.pause();
-              prippan.src="src/prippan.png";
               toggle_strobe = true;
             }
           } 
